@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import illustration from "./images/blogging.svg";
+import Signup from "./components/Signup";
+import { ToastsContainer, ToastsStore } from "react-toasts";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+	const [alert, setAlert] = useState(null);
+
+	useEffect(() => {
+		if (alert) {
+			if (alert.type === "success") ToastsStore.success(alert.message, 5000);
+			if (alert.type === "error") ToastsStore.error(alert.message, 5000);
+		}
+	}, [alert]);
+
+	return (
+		<div className="app">
+			<div className="image-cont">
+				<img src={illustration} alt="" />
+			</div>
+			<Signup setAlert={alert => setAlert(alert)} />
+			<ToastsContainer store={ToastsStore} />
+		</div>
+	);
+};
 
 export default App;
