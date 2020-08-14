@@ -68,7 +68,8 @@ const Signup = ({ setAlert }) => {
 			})
 				.then(res => res.json())
 				.then(res => {
-					if (res.errors) setAlert({ type: "error", message: "An error occurred. Signup unsuccessful." });
+					if (res.errors)
+						setAlert({ type: "error", message: "Signup unsuccessful. " + res.errors[0].message });
 					else {
 						setAlert({ type: "success", message: "Signup successful. " + res.message });
 						formik.resetForm();
